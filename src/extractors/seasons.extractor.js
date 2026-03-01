@@ -9,15 +9,16 @@ async function extractSeasons(id) {
     const $ = cheerio.load(resp.data);
     const seasons = $(".anis-watch>.other-season>.inner>.os-list>a")
       .map((index, element) => {
+        const href = $(element).attr("href");
         const data_number = index;
-        const data_id = parseInt($(element).attr("href").split("-").pop());
+        const data_id = parseInt(href.split("-").pop());
         const season = $(element).find(".title").text().trim();
-        const title = $(element).attr("title").trim();
+        const title = $(element).attr("title").trim() || "";
         const id = href.replace(/^\/+/, "");
-        const season_poster = $(element)
-          .find(".season-poster")
-          .attr("style")
-          .match(/url\((.*?)\)/)[1];
+        const style = $(element).find(".season-poster").attr("style") || "";
+        const posterMatch = style.match(/url\((.*?)\)/);
+        const season_poster = posterMatch ? posterMatch[1] : "";
+
         return { id, data_number, data_id, season, title, season_poster };
       })
       .get();
