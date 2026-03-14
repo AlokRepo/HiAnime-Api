@@ -23,14 +23,14 @@ export async function extractServers(id) {
       switch (serverName.toLowerCase()) {
         case "megacloud":
         case "rapidcloud":
-          serverName = "hd-1";
+          serverName = "HD-1";
           break;
         case "vidsrc":
         case "vidstreaming":
-          serverName = "hd-2";
+          serverName = "HD-2";
           break;
         case "t-cloud":
-          serverName = "hd-3";
+          serverName = "HD-3";
           break;
       }
 
